@@ -1,0 +1,35 @@
+let iocs = externaldata(Indicatortype:string,Indicator:string,Description:string) [@"https://raw.githubusercontent.com/davanitz/huntingioc/main/62b5767285717d7d3a45b2b8.csv"] with (format="csv", ignoreFirstRecord=True);
+let sha256Hashes = (iocs | where Indicatortype == "FileHash-SHA256" | project Indicator);
+let sha1Hashes = (iocs | where Indicatortype == "FileHash-SHA1" | project Indicator);
+let md5Hashes = (iocs | where Indicatortype == "FileHash-MD5" | project Indicator);
+let ipadd = (iocs | where Indicatortype =~ "IPv4" | project Indicator);
+let HostName = (iocs | where Indicatortype =~ "hostname" | project Indicator);
+let domains = (iocs | where Indicatortype =~ "domain" | project Indicator);
+let GET_URI = (iocs | where Indicatortype =~ "URL" | project Indicator);
+let cveids = (iocs | where Indicatortype =~ "CVE" | project Indicator);
+(union isfuzzy=true
+(DeviceNetworkEvents
+| where RemoteUrl has_any (GET_URI)
+  or RemoteIP has_any (ipadd)
+  or RemoteUrl has_any (HostName)
+  or RemoteUrl has_any (domains)
+  ),
+(DeviceFileEvents
+| where SHA256  has_any (sha256Hashes)
+  or SHA1 has_any (sha1Hashes)
+  or MD5 has_any (md5Hashes)
+  or FileOriginUrl has_any (GET_URI)
+  or FileOriginReferrerUrl has_any (GET_URI)
+//| project InitiatingProcessFileName, InitiatingProcessCommandLine, InitiatingProcessFolderPath
+  ),
+(DeviceTvmSoftwareVulnerabilities
+| where CveId has_any (cveids)
+| summarize dcount(DeviceName) by CveId
+  ),
+(UrlClickEvents
+| where Url has_any (GET_URI)
+  ),
+(EmailUrlInfo
+| where Url has_any (GET_URI)
+  )
+)
