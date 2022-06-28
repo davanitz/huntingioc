@@ -1,4 +1,8 @@
 ## AlienVault OTX
-$apikey = "616773d78a720cdbd0679a8d4fc2f7de327ed0e40f3bca8242bd506d3d026525"
-$feedurl = "https://otx.alienvault.com/api/v1/indicators/IPv4/175.176.71.25/general"
+## Sender domain and IP reputation, whois date of registration and registrar, domain TLS/SSL enabled
+## section: required (one of general, reputation, geo, malware, url_list, passive_dns)
+$apikey = "otx-key-here"
+$section = "malware"
+$ip = "175.176.71.25"
+$feedurl = "https://otx.alienvault.com/api/v1/indicators/IPv4/$ip/$section"
 Invoke-RestMethod -Uri $feedurl  -Headers @{"X-OTX-API-KEY"="$apikey"}
