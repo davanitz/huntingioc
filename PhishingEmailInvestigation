@@ -1,0 +1,4 @@
+## AlienVault OTX
+$apikey = "616773d78a720cdbd0679a8d4fc2f7de327ed0e40f3bca8242bd506d3d026525"
+$feedurl = "https://otx.alienvault.com/api/v1/indicators/IPv4/175.176.71.25/general"
+Invoke-RestMethod -Uri $feedurl  -Headers @{"X-OTX-API-KEY"="$apikey"}
