@@ -1,8 +1,21 @@
-## AlienVault OTX
-## Sender domain and IP reputation, whois date of registration and registrar, domain TLS/SSL enabled
 ## section: required (one of general, reputation, geo, malware, url_list, passive_dns)
-$apikey = "otx-key-here"
-$section = "malware"
-$ip = "175.176.71.25"
-$feedurl = "https://otx.alienvault.com/api/v1/indicators/IPv4/$ip/$section"
-Invoke-RestMethod -Uri $feedurl  -Headers @{"X-OTX-API-KEY"="$apikey"}
+$apikey = "616773d78a720cdbd0679a8d4fc2f7de327ed0e40f3bca8242bd506d3d026525"
+$vtkey = "445ddba89c74de8124f0070bc7ae2e27dcb261f3d1e77787a93eeed653ca7aa4"
+$ckey = "x-apikey: $vtkey"
+$section = "general"
+$ip = "203.96.191.70"
+$domain = "mr-daten.de"
+$otxurl = "https://otx.alienvault.com/api/v1/indicators/IPv4/$ip/$section"
+##$otxurl = "https://otx.alienvault.com/api/v1/indicators/domain/$domain/$section"
+$vturl = "https://www.virustotal.com/api/v3/ip_addresses/$ip/votes"
+Invoke-RestMethod -Uri $otxurl  -Headers @{"X-OTX-API-KEY"="$apikey"}
+Invoke-RestMethod -Uri $vturl  -Headers @{"x-apikey"="$vtkey"}
+##$indicators = Invoke-webrequest  -Uri $vturl  -Headers @{"x-apikey"="$vtkey"}
+##$data = $indicators.Content | ConvertFrom-Json
+##$next = $data.next
+##$page = $next.split("&")[1].split("=")[1]
+##Write-Output $data
+#$headers=@{}
+#$headers.Add("Accept", "application/json")
+#$headers.Add("x-apikey", "445ddba89c74de8124f0070bc7ae2e27dcb261f3d1e77787a93eeed653ca7aa4")
+#$response = Invoke-WebRequest -Uri 'https://www.virustotal.com/api/v3/ip_addresses/175.176.71.25' -Method GET -Headers $headers
