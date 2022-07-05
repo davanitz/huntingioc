@@ -19,3 +19,17 @@ Invoke-RestMethod -Uri $vturl  -Headers @{"x-apikey"="$vtkey"}
 #$headers.Add("Accept", "application/json")
 #$headers.Add("x-apikey", "445ddba89c74de8124f0070bc7ae2e27dcb261f3d1e77787a93eeed653ca7aa4")
 #$response = Invoke-WebRequest -Uri 'https://www.virustotal.com/api/v3/ip_addresses/175.176.71.25' -Method GET -Headers $headers
+## this section is for AbuseIPDB
+$IP = "192.193.171.158"
+$abuseipdbkey = "940dd2873b7be63f14a65b015729162151a31048e69401f21ee46103a9ca09fdae066f2ca2a30780"
+$url = "https://api.abuseipdb.com/api/v2/check"
+$Header = @{
+        'Key' = $abuseipdbkey;
+}
+$BodyCheck = @{
+        'ipAddress' = $IP;
+		'maxAgeInDays' = '90';
+		'verbose' = '';
+}
+
+Invoke-RestMethod -Method GET $url -Header $Header -Body $BodyCheck -ContentType 'application/json; charset=utf-8'
