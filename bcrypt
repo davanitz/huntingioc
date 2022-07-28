@@ -11,3 +11,6 @@ with open('rockyou.txt') as f:
         # checking password
         result = bcrypt.checkpw(userBytes, myhash)
         print(result)
+## https://resources.infosecinstitute.com/topic/hashcat-tutorial-beginners/
+## So I'm currently doing a tryhackme room (Daily Bugle) and one of the challenges is to crack this hash: $2a$06$SiI76kzpPcpgpOYnlHTcbOZ8ew784Pu2lukhDOLubr4yVEH..rVnq
+## "John hashfile --wordlist=/usr/share/wordlists/rockyou.txt --format=bcrypt"
