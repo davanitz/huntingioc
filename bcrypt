@@ -1,24 +1,13 @@
 import bcrypt
-
-# example password
-password = 'passwordabc'
-
-# converting password to array of bytes
-bytes = password.encode('utf-8')
-
-# generating the salt
-salt = bcrypt.gensalt()
-
 # Hashing the password
-hash = bcrypt.hashpw(bytes, salt)
-
-# Taking user entered password
-userPassword = 'passwordabc'
-
-# encoding user password
-userBytes = userPassword.encode('utf-8')
-
-# checking password
-result = bcrypt.checkpw(userBytes, hash)
-
-print(result)
+hash = '$2a$06$SiI76kzpPcpgpOYnlHTcbOZ8ew784Pu2lukhDOLubr4yVEH..rVnq'
+myhash = hash.encode('utf-8')
+with open('rockyou.txt') as f:
+    for password in f:
+        print(password)
+        userpassword = password
+        # encoding user password
+        userBytes = userpassword.encode('utf-8')
+        # checking password
+        result = bcrypt.checkpw(userBytes, myhash)
+        print(result)
