@@ -1,4 +1,4 @@
-NAME,VIRTUAL NETWORK,Virtual Network Trust Level,SUBSCRIPTION
+NAME,VIRTUALNETWORK,VirtualNetworkTrustLevel,SUBSCRIPTION
 ADForest-LPMTest,vnet-eas-cpm-dev-01,Low,R&D.CPM.DevTest
 Aveek-Ubuntu20,vnet-eas-cpm-dev-01,Low,R&D.CPM.DevTest
 aveek10x64-01,vnet-eas-cpm-dev-01,Low,R&D.CPM.DevTest
