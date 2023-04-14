@@ -1,12 +1,4 @@
 vmname,ipaddress
-pacebu06,10.140.107.33
-pceblextest,10.140.107.71
-PCEBPPQA,10.140.107.20
-pcebubundles,10.140.107.39
-pcebulicsrv01,10.140.107.42
-pcebumysqlsrv01,10.140.107.49
-pcebuqaremtest04,10.140.107.13
-pcebusqlsrv01,10.140.107.38
-pcebusqlsrv02,10.140.107.70
-SQA-2012-11,10.140.107.44
-testvmpceb,10.140.107.68
+chinagit,10.143.43.6
+chinajenkins,10.143.43.5
+lexbldlinux49,10.143.43.4
