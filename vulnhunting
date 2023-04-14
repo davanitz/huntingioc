@@ -1,0 +1,18 @@
+// This hunt CVE
+let iocs = externaldata(cve:string) [@"https://raw.githubusercontent.com/davanitz/huntingioc/main/zeroday.txt"] with (format="csv", ignoreFirstRecord=True);
+let cvd = (iocs | project cve);
+//let cvd = "CVE-2018-0802";
+DeviceInfo
+| where Timestamp > ago(30d)
+| join (
+DeviceTvmSoftwareVulnerabilities
+| where CveId has_any (cvd)
+//| summarize count() by CveId
+) on DeviceName
+//| where DeviceName has "bddevmshvm13"
+//| distinct DeviceName, OSPlatform1, CveId, SoftwareName
+//| summarize count() by bin(Timestamp, 1d)
+//| extend myDAY = split(Timestamp, "T", 0) //using split to parse
+//| order by Timestamp
+//| project myDAY, count_
+| summarize count() by CveId
