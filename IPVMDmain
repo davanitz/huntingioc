@@ -1,0 +1,27 @@
+let iocs = externaldata(vmname:string,ipaddress:string) [@"https://raw.githubusercontent.com/davanitz/huntingioc/main/tempe.csv"] with (format="csv", ignoreFirstRecord=True);
+//let ip = "10.140.108.112";
+let ip = (iocs | project ipaddress);
+let devnetinfo =
+DeviceNetworkInfo 
+| where IPAddresses has_any (ip)
+| extend ipadd = parse_json(IPAddresses)
+| extend address = ipadd[0]
+| evaluate bag_unpack(address)
+| project-away IPAddresses, ipadd, AddressType, SubnetPrefix
+//| distinct DeviceName, DeviceId, IPAddress 
+;
+let filterip =
+devnetinfo
+| join ip on $left.IPAddress == $right.ipaddress
+;
+(union isfuzzy=true
+DeviceInfo
+| join filterip on DeviceId
+| extend dom = parse_json(LoggedOnUsers)
+| mv-apply dom on (
+    project Domain = tostring(dom.DomainName),
+            User = tostring(dom.UserName)
+)
+| distinct DeviceName, DeviceId, IPAddress, OnboardingStatus,Domain
+)
+
