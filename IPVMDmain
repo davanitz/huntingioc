@@ -3,6 +3,7 @@ let iocs = externaldata(vmname:string,ipaddress:string) [@"https://raw.githubuse
 let ip = (iocs | project ipaddress);
 let devnetinfo =
 DeviceNetworkInfo 
+| where Timestamp > ago(60d)
 | where IPAddresses has_any (ip)
 | extend ipadd = parse_json(IPAddresses)
 | extend address = ipadd[0]
@@ -16,6 +17,7 @@ devnetinfo
 ;
 (union isfuzzy=true
 DeviceInfo
+| where Timestamp > ago(60d)
 | join filterip on DeviceId
 | extend dom = parse_json(LoggedOnUsers)
 | mv-apply dom on (
