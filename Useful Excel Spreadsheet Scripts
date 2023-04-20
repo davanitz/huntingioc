@@ -1,0 +1,7 @@
+// Filtering TAGS in Azure TAGS
+// example:
+// {"databricks-instance-name":"007149061df946fe9e629d8189d43292","DatabricksEnvironment":"xxxxx-84xxxx4703395151","ClusterName":"job-203528665589395-run-164248595-Job_cluster","ClusterId":"xxx9-0xxxx20-98tetvcx","Vendor":"Databricks","Creator":"sxxxx.xxxxdy@lexmark.com","RunName":"supplies_loyalty_Raw_to_Bronze","Environment":"NonProd","management_service":"instance_manager_service","JobId":"203528665589395","CostCenter":"I-xxxx-E-xxxx-xxxxx","DataClassification":"ConfidentialData","Project":"Databricks-IaC","BusinessOwner":"xxx.xxx@gmail.com","ResourceClass":"SingleNode","Application":"xxxx-iac","ProvisionedBy":"xxxx-xxxx@gmail.com","ApplicationOwner":"xxx.xxxxx@gmail.com","LastReviewedDate":"2022-06-16","CreatedOnDate":"03/28/2023-16:16:28","PatchingWindow":"LkStan","LastReviewedBy":"raju.mudunuri@gmail.com","SupTeam":"platformnon@gmail.com","AppSupportTeam":"test@gmail","ServiceClass":"SC1","Repository":"https://Lk@dev.azxxure.com/xx/IxxT-xx-N-xx/xx/Databricks-IaC"}
+=IFERROR(LET(x, RIGHT($J249, LEN($J249) - FIND("ApplicationOwner", $J249)- LEN("ApplicationOwner")-2), LEFT(x, FIND(",", x)-2)),"")
+
+// Assigning value of "Not Compliant" and "Compliant" if any of the cell matches value
+=IF(OR(I37 = "Fail", AND(D37="Medium",ISNUMBER(MATCH("Fail",G37:M37,0)))),"Not Compliant","Compliant")
