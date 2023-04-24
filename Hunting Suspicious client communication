@@ -1,0 +1,19 @@
+// This will hunt the DeviceID have different machine based on the  NetworkAdapterName or MacAddress
+let devid = "36bc59d0e3c1bffde1fbac56ae032b4955324533";
+let devinfo =
+DeviceInfo
+| where DeviceId == devid
+;
+let devnetinfo =
+DeviceNetworkInfo
+| where DeviceId == devid
+| extend ipadd = parse_json(IPAddresses)
+| extend address = ipadd[0]
+| evaluate bag_unpack(address)
+;
+(union isfuzzy=true
+devinfo
+| join devnetinfo on DeviceId
+//| distinct DeviceName, NetworkAdapterName, MacAddress, IPAddress
+| distinct DeviceName, NetworkAdapterName, MacAddress
+)
