@@ -1,1 +1,13 @@
 vmname,ipaddress
+lexbldlinux07,10.140.13.50
+lexbldtest05,10.140.13.46
+lexscmbld22,10.140.13.57
+lexscmbld27,10.140.13.47
+lexscmbld30,10.140.13.54
+pacebu04,10.140.107.29
+poseidon-devel-webserver,10.152.18.100
+PSIG,10.140.66.11
+swrelease,10.143.48.4
+testvmpceb,10.140.107.68
+VBL10,10.140.15.76
+VBL4,10.140.15.77
